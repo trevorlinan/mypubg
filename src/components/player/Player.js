@@ -15,11 +15,9 @@ class Player extends Component {
     displayPlayerMatches = matches => {
         return (
             matches && matches.length ?
-                <React.Fragment>
-                    <ul>
-                        { matches.map(match => <li key={match.id}>{match.id}</li>) }
-                    </ul>
-                </React.Fragment>
+                <ul>
+                    { matches.map(match => <li key={ match.id }>{ match.id }</li>) }
+                </ul>
             : null
         )
     }
@@ -35,10 +33,12 @@ class Player extends Component {
             })
             .then(data => {
                 let playerData = data.data.data[0];
+
                 const {
                     relationships: { matches: { data: matchList }},
                     attributes: { name: playerName }
                 } = playerData;
+
                 this.setState({
                     playerName,
                     matchList
