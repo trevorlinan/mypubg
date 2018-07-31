@@ -2,24 +2,16 @@ import React, { Component } from 'react';
 import './Player.css';
 import axios from 'axios';
 
+import Matches from './Matches';
+
 class Player extends Component {
     constructor () {
         super();
 
         this.state = {
             playerName: null,
-            matchList: null
+            matchIds: null
         };
-    }
-
-    displayPlayerMatches = matches => {
-        return (
-            matches && matches.length ?
-                <ul>
-                    { matches.map(match => <li key={ match.id }>{ match.id }</li>) }
-                </ul>
-            : null
-        )
     }
 
     getPlayerData = () => {
@@ -35,13 +27,13 @@ class Player extends Component {
                 let playerData = data.data.data[0];
 
                 const {
-                    relationships: { matches: { data: matchList }},
+                    relationships: { matches: { data: matchIds }},
                     attributes: { name: playerName }
                 } = playerData;
 
                 this.setState({
                     playerName,
-                    matchList
+                    matchIds
                 })
             })
     }
@@ -51,13 +43,13 @@ class Player extends Component {
     }
 
     render () {
-        const { playerName, matchList } = this.state;
+        const { playerName, matchIds } = this.state;
         return (
             <div className="player">
                 <h2>Player Component</h2>
                 <h3>Player Name: { playerName }</h3>
                 <h3>Match Ids:</h3>
-                { this.displayPlayerMatches(matchList) }
+                <Matches { ...{ matchIds }} />
             </div>
         )
     }
