@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Matches.css';
 import axios from 'axios';
 
 class Matches extends Component {
@@ -14,13 +15,12 @@ class Matches extends Component {
         this.getMatches();
     }
 
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate (prevProps) {
         if (prevProps.matchIds == null)  this.getMatches();
     }
 
     getMatches = () => {
         const { matchIds } = this.props;
-
         if (matchIds && matchIds.length) {
             const getMatchData = async () => {
                 const matchData = await Promise.all(
@@ -33,25 +33,45 @@ class Matches extends Component {
                                     Accept: 'application/json'
                                 }
                             });
-                        console.log('data', data);
-                        return <li>{data.data.data.attributes.mapName}</li>
+                        return data.data.data; // ...but why?
                     })
                 );
-                console.log(matchData);
                 this.setState({ matchData });
             }
             getMatchData();
         }
     }
 
+    listMatchItems = matchData => {
+        return matchData.map(data => {
+            const { id, attributes: { mapName, gameMode, duration }} = data;
+            let minutes = Math.floor(duration / 60);
+            let seconds = duration - minutes * 60;
+            return (
+                <li className="match-row" key={ id }>
+                    <p>{ mapName}</p>
+                    <p>{ gameMode }</p>
+                    <p>{ `${ minutes }:${ seconds < 10 ? '0' + seconds : seconds }` }</p>
+                </li>
+            )
+        })
+    }
+
     render () {
         const { matchData } = this.state;
         return (
-            matchData && matchData.length ?
-                <ul>
-                    { matchData.map(data => <li>{ data.name }</li>)}
-                </ul>
-                : null
+            <div className="matches">
+                { matchData && matchData.length ?
+                    <ul>
+                        <li className="match-row" key={'title-row'}>
+                            <h3>Map Name</h3>
+                            <h3>Game Mode</h3>
+                            <h3>Duration</h3>
+                        </li>
+                        { this.listMatchItems(matchData) }
+                    </ul>
+                : <p className="loading">Loading...</p> }
+            </div>
         )
     }
 }

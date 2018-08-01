@@ -1,0 +1,32 @@
+.matches .loading {
+    color: #f0a828;
+}
+
+.matches .match-row {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.matches ul {
+    width: 100%;
+    border-top: 1px solid #fff;
+    padding: 0 25px 50px 25px;
+
+}
+
+.matches .match-row > p,
+.matches .match-row > h3 {
+    width: 33.33%;
+    text-align: center;
+}
+
+.matches .match-row > p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.matches .match-row > h3 {
+    color: #f0a828;
+}
