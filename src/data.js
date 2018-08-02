@@ -1,1 +1,1 @@
-export const players = ['Dr Marbles', 'Rhawky', 'McDink', 'silverrhino1', 'MEth0D5'];
+export const players = ['Dr Marbles', 'Rhawky', 'McDinkk', 'silverrhino1', 'MEth0D5'];
