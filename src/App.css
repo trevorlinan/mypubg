@@ -1,5 +1,5 @@
 body {
-    background: #000 url('./assets/images/black_bg.jpg') no-repeat 50% 50%;
+    background: #000 url('./assets/images/pubg_dark_bg.png') no-repeat 50% 50%;
     background-size: cover;
     background-attachment: fixed;
     color: #fff;
@@ -7,10 +7,15 @@ body {
     font-family: 'Cuprum', sans-serif;
 }
 
-.mypubg {}
+.mypubg {
+    padding-top: 50px;
+}
 
 .mypubg h1 {
-    text-align: center;
+    position: fixed;
+    top: 10px;
+    left: 50px;
+    text-align: left;
     color: #f0a828;
 }
 

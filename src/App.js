@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="mypubg">
-          <h1>Welcome to MyPUBG.</h1>
+          <h1>MyPUBG</h1>
           <Player />
       </div>
     );

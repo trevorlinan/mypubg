@@ -3,6 +3,7 @@ import './Player.css';
 import axios from 'axios';
 
 import Matches from '../matches/Matches';
+import Season from '../season/Season';
 import { players } from '../../data';
 
 class Player extends Component {
@@ -10,8 +11,39 @@ class Player extends Component {
         super();
 
         this.state = {
-            playerData: null
+            playerData: null,
+            currentSeasonId: null
         };
+    }
+
+    componentDidMount () {
+        this.getCurrentSeason();
+    }
+
+    componentDidUpdate (prevProps, prevState) {
+        if (prevState.currentSeasonId == null)  {
+            this.getPlayerData();
+        }
+    }
+
+    getCurrentSeason = () => {
+        axios.get(
+            'https://api.pubg.com/shards/xbox-na/seasons',
+            {
+                headers: {
+                    Authorization: `Bearer ${ process.env.REACT_APP_PUBG_API_KEY }`,
+                    Accept: 'application/json'
+                }
+            })
+            .then(data => {
+                const seasons = data.data.data;
+                let currentSeason = seasons.find(season => {
+                    const { attributes: { isCurrentSeason }} = season;
+                    if (isCurrentSeason) return season;
+                })
+                const { id: currentSeasonId } = currentSeason;
+                this.setState({ currentSeasonId })
+            })
     }
 
     getPlayerData = () => {
@@ -30,7 +62,7 @@ class Player extends Component {
             })
     }
 
-    listPlayers = playerData => {
+    listPlayers = (playerData, currentSeasonId) => {
         return playerData.map(player => {
             const {
                 relationships: { matches: { data: matchIds }},
@@ -40,21 +72,18 @@ class Player extends Component {
             return (
                 <div className="player" key={ id }>
                     <h4>{ playerName }</h4>
+                    <Season { ...{ id, currentSeasonId }} />
                     <Matches { ...{ matchIds }} />
                 </div>
             )
         })
     }
 
-    componentDidMount () {
-        this.getPlayerData();
-    }
-
     render () {
-        const { playerData } = this.state;
+        const { playerData, currentSeasonId } = this.state;
         return (
             playerData && playerData.length ?
-                this.listPlayers(playerData)
+                this.listPlayers(playerData, currentSeasonId)
             : null
         )
     }
