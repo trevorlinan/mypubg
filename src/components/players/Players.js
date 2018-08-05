@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Player.css';
+import './Players.css';
 import axios from 'axios';
 
 import Matches from '../matches/Matches';
@@ -71,9 +71,9 @@ class Player extends Component {
             } = player;
             return (
                 <div className="player" key={ id }>
-                    <h4>{ playerName }</h4>
-                    <Season { ...{ id, currentSeasonId }} />
-                    <Matches { ...{ matchIds }} />
+                    {/*<h4>{ playerName }</h4>*/}
+                    <Season { ...{ id, playerName, currentSeasonId }} />
+                    {/*<Matches { ...{ matchIds }} />*/}
                 </div>
             )
         })
@@ -83,7 +83,9 @@ class Player extends Component {
         const { playerData, currentSeasonId } = this.state;
         return (
             playerData && playerData.length ?
-                this.listPlayers(playerData, currentSeasonId)
+                <div className="players">
+                    { this.listPlayers(playerData, currentSeasonId) }
+                </div>
             : null
         )
     }

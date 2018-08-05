@@ -1,0 +1,24 @@
+.full-stats {
+    display: table;
+}
+
+.full-stats .stat {
+    display: table-cell;
+    padding: 0 25px;
+    white-space: nowrap;
+}
+
+.full-stats li p,
+.full-stats li h3 {
+    display: inline-block;
+}
+
+.full-stats li h3 {
+    color: #f0a828;
+}
+
+.full-stats li p {
+    margin: 0 10px;
+}
+
+

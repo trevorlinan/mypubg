@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import './Season.css';
 import axios from "axios/index"
 
+import TopStats from '../stats/TopStats';
+import FullStats from '../stats/FullStats';
+
 class Season extends Component {
     constructor () {
         super();
 
         this.state = {
-            seasonData: null
+            seasonData: null,
+            fullStats: false
         }
     }
 
@@ -32,31 +36,44 @@ class Season extends Component {
             })
     }
 
-    listSeasonStats = seasonData => {
+    listTopStats = seasonData => {
         const { attributes: { gameModeStats: { squad } }} = seasonData;
-        return (
-            <li className="season-row">
-                <p>{ Math.round(squad['longestKill']) }</p>
-                <p>{ Math.round(squad['longestTimeSurvived']) }</p>
-                <p>{ squad['wins'] }</p>
-            </li>
-        )
+        let topStatsObj = {
+            'Longest Kill': Math.round(squad['longestKill']),
+            'Longest Time Survived': Math.round(squad['longestTimeSurvived']),
+            'Wins': squad['wins']
+        }
+        return <TopStats { ...{ topStatsObj }} />
+    }
+
+    listFullStats = seasonData => {
+        const { attributes: { gameModeStats: { squad: fullStatsObj } }} = seasonData;
+        return <FullStats { ...{ fullStatsObj }} />
     }
 
     render () {
-        const { seasonData } = this.state;
+        const { seasonData, fullStats } = this.state;
+        const { playerName } = this.props;
         return (
             <div className="season">
-                { seasonData ?
-                    <ul>
-                        <li className="season-row" key={'title-row'}>
-                            <h3>Longest Kill</h3>
-                            <h3>Longest Time Survived</h3>
-                            <h3>Wins</h3>
-                        </li>
-                        {  this.listSeasonStats(seasonData) }
-                    </ul>
-                : <p className="loading">Loading...</p> }
+
+                <div className="season-peek">
+                    <h4 className="player-name">{ playerName }</h4>
+                    <div
+                        className={`drop-arrow ${ fullStats ? 'open' : null }`}
+                        onClick={() => this.setState({ fullStats: !fullStats })}>
+                    </div>
+                    { seasonData ?
+                        this.listTopStats(seasonData)
+                    : <div className="loading">Loading</div> }
+                </div>
+
+                <div className="season-list">
+                    { fullStats ?
+                        this.listFullStats(seasonData)
+                    : null }
+                </div>
+
             </div>
         )
     }
