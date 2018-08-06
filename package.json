@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "dotenv": "^6.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-transition-group": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

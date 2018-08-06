@@ -1,12 +1,20 @@
 .full-stats {
     display: table;
+    padding: 0;
 }
 
 .full-stats .stat {
     display: table-cell;
-    padding: 0 25px;
+    padding: 0 10px;
     white-space: nowrap;
 }
+
+.full-stats .stat .stat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 .full-stats li p,
 .full-stats li h3 {
@@ -14,6 +22,7 @@
 }
 
 .full-stats li h3 {
+    margin: 5px;
     color: #f0a828;
 }
 

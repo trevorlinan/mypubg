@@ -4,7 +4,7 @@
 
 .season {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-flow: column wrap;
 }
@@ -18,10 +18,7 @@
 }
 
 .season .season-list {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-flow: row nowrap;
+    transform-origin: top center;
 }
 
 .season .season-row {

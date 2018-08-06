@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     flex-flow: column nowrap;
 }
 

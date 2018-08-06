@@ -11,14 +11,13 @@ class Season extends Component {
 
         this.state = {
             seasonData: null,
-            fullStats: false
+            showFullStats: false
         }
     }
 
     componentDidMount () {
         this.getSeasonData()
     }
-
 
     getSeasonData = () => {
         const { id: playerId, currentSeasonId } = this.props;
@@ -36,44 +35,20 @@ class Season extends Component {
             })
     }
 
-    listTopStats = seasonData => {
-        const { attributes: { gameModeStats: { squad } }} = seasonData;
-        let topStatsObj = {
-            'Longest Kill': Math.round(squad['longestKill']),
-            'Longest Time Survived': Math.round(squad['longestTimeSurvived']),
-            'Wins': squad['wins']
-        }
-        return <TopStats { ...{ topStatsObj }} />
-    }
-
-    listFullStats = seasonData => {
-        const { attributes: { gameModeStats: { squad: fullStatsObj } }} = seasonData;
-        return <FullStats { ...{ fullStatsObj }} />
-    }
-
     render () {
-        const { seasonData, fullStats } = this.state;
+        const { seasonData, showFullStats } = this.state;
         const { playerName } = this.props;
         return (
             <div className="season">
-
                 <div className="season-peek">
                     <h4 className="player-name">{ playerName }</h4>
                     <div
-                        className={`drop-arrow ${ fullStats ? 'open' : null }`}
-                        onClick={() => this.setState({ fullStats: !fullStats })}>
+                        className={`drop-arrow ${ showFullStats ? 'open' : null }`}
+                        onClick={() => this.setState({ showFullStats: !showFullStats })}>
                     </div>
-                    { seasonData ?
-                        this.listTopStats(seasonData)
-                    : <div className="loading">Loading</div> }
+                    <TopStats { ...{ seasonData }} />
                 </div>
-
-                <div className="season-list">
-                    { fullStats ?
-                        this.listFullStats(seasonData)
-                    : null }
-                </div>
-
+                <FullStats { ...{ seasonData, showFullStats } } />
             </div>
         )
     }
