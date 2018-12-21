@@ -1,10 +1,9 @@
 .top-stats {
     flex-grow: 1;
-    display: table;
+    padding: 0;
 }
 
 .top-stats .stat {
-    display: table-cell;
     padding: 0 25px;
     white-space: nowrap;
 }

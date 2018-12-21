@@ -7,23 +7,25 @@
     justify-content: center;
     align-items: center;
     flex-flow: column wrap;
+    width: 100vw;
 }
 
 .season .season-peek {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     flex-flow: row nowrap;
+    width: 100%;
     border-bottom: 1px solid #e6e6e6;
 }
 
 .season .season-list {
+    width: 100%;
     transform-origin: top center;
 }
 
 .season .season-row {
     list-style: none;
-    display: table-row;
 }
 
 .season .season-row > p {

@@ -21,6 +21,13 @@ class Season extends Component {
 
     getSeasonData = () => {
         const { id: playerId, currentSeasonId } = this.props;
+        if (window.localStorage.hasOwnProperty('playerData')) {
+            let playerData = JSON.parse(window.localStorage.getItem('playerData'));
+            let playerIndex = playerData.findIndex(({ id }) => playerId === id);
+            let seasonData = playerData[playerIndex].seasonData;
+            this.setState({ seasonData });
+            return;
+        }
         axios.get(
             `https://api.pubg.com/shards/xbox-na/players/${ playerId }/seasons/${ currentSeasonId }`,
             {
@@ -31,7 +38,13 @@ class Season extends Component {
             })
             .then(data => {
                 let seasonData = data.data.data;
-                this.setState({ seasonData })
+                this.setState({ seasonData });
+                if (window.localStorage.hasOwnProperty('playerData')) {
+                    let playerData = JSON.parse(window.localStorage.getItem('playerData'));
+                    let playerIndex = playerData.findIndex(({ id }) => playerId === id);
+                    playerData[playerIndex].seasonData = seasonData;
+                    window.localStorage.setItem('playerData', JSON.stringify(playerData))
+                }
             })
     }
 

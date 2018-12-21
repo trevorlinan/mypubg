@@ -52,14 +52,14 @@ const createList = stats => {
     let listRows = [];
     Object.keys(stats).reduce((obj, stat, ind) => {
         obj[stat] = stats[stat];
-        if (ind % 3 === 2) {
+        if (ind % 1 === 0) { // (ind % 2 === 0) for 2 columns, (ind % 3 === 2) for 3 columns
             listRows.push(obj);
             obj = {};
         }
         return obj;
-    }, {})
+    }, {});
     return listRows;
-}
+};
 
 const listStats = data => {
     const { attributes: { gameModeStats: { squad: fullStatsObj } }} = data;
@@ -82,7 +82,7 @@ const listStats = data => {
             </li>
         )
     })
-}
+};
 
 const FullStats = props => {
     const { showFullStats, seasonData } = props;
@@ -104,6 +104,6 @@ const FullStats = props => {
         )
     }
     return null;
-}
+};
 
 export default FullStats;

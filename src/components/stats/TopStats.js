@@ -7,8 +7,8 @@ const TopStats = props => {
         const { attributes: {gameModeStats: {squad}}} = seasonData;
         let topStatsObj = {
             'Longest Kill': Math.round(squad['longestKill']),
-            'Longest Time Survived': Math.round(squad['longestTimeSurvived']),
-            'Wins': squad['wins']
+            // 'Longest Time Survived': Math.round(squad['longestTimeSurvived']),
+            // 'Wins': squad['wins']
         }
         return (
             <ul className="top-stats">
